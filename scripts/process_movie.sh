@@ -101,11 +101,12 @@ for RAW in "$OUT_RAW"/*.mp4; do
     # Convert BASENAME to number for display (remove leading zeros)
     PART_NUM=$((10#$BASENAME))
     
-    # YOUR EXACT FFMPEG COMMAND
+    # YOUR EXACT FFMPEG COMMAND WITH BEBAS NEUE FONT
+    FONT="./fonts/BebasNeue-Regular.ttf"
     ffmpeg -hide_banner -y \
         -i "$RAW" \
         -loop 1 -i "$BG" \
-        -filter_complex "[1:v]scale=1080:1920[bg];[0:v]scale='min(iw,1080)':620,setsar=1[vid];[bg][vid]overlay=(W-w)/2:(H-h)/2:shortest=1[final];[final]drawtext=text='Part-${PART_NUM}':fontsize=62:fontcolor=white:x=(w-text_w)/2:y=500,drawtext=text='${CHANNEL_NAME}':fontsize=62:fontcolor=white:x=(w-text_w)/2:y=585,drawtext=text='(Full Movie Link In Bio)':fontsize=58:fontcolor=white:x=(w-text_w)/2:y=h-630" \
+        -filter_complex "[1:v]scale=1080:1920[bg];[0:v]scale='min(iw,1080)':620,setsar=1[vid];[bg][vid]overlay=(W-w)/2:(H-h)/2:shortest=1[final];[final]drawtext=text='Part-${PART_NUM}':fontfile=${FONT}:fontsize=72:fontcolor=white:x=(w-text_w)/2:y=500,drawtext=text='${CHANNEL_NAME}':fontfile=${FONT}:fontsize=72:fontcolor=white:x=(w-text_w)/2:y=590,drawtext=text='(Full Movie Link In Bio)':fontfile=${FONT}:fontsize=64:fontcolor=white:x=(w-text_w)/2:y=h-630" \
         -c:a aac -b:a 128k -ar 44100 \
         -movflags +faststart \
         -preset veryfast \
