@@ -49,6 +49,11 @@ jobs:
           curl -fsSL https://deno.land/install.sh | sh
           echo "$HOME/.deno/bin" >> $GITHUB_PATH
 
+      - name: Download Bebas Neue font
+        run: |
+          mkdir -p fonts
+          curl -L "https://github.com/google/fonts/raw/main/ofl/bebasneue/BebasNeue-Regular.ttf" -o fonts/BebasNeue-Regular.ttf
+
       - name: Install rclone
         run: |
           curl https://rclone.org/install.sh | sudo bash
