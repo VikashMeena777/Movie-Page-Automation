@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg deno
           pip install yt-dlp
 
       - name: Install rclone
@@ -53,13 +53,17 @@ jobs:
           mkdir -p ~/.config/rclone
           echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
 
+      - name: Setup YouTube cookies
+        run: |
+          echo "${{ secrets.YOUTUBE_COOKIES }}" > cookies.txt
+
       - name: Create directories
         run: |
           mkdir -p Input RawClips FinalClips
 
       - name: Download video
         run: |
-          yt-dlp -o "Input/video.mp4" "${{ steps.vars.outputs.VIDEO_URL }}"
+          yt-dlp --cookies cookies.txt -o "Input/video.mp4" "${{ steps.vars.outputs.VIDEO_URL }}"
 
       - name: Process video clips
         env:
