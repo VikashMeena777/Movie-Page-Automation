@@ -68,7 +68,12 @@ jobs:
 
       - name: Download video
         run: |
-          yt-dlp --cookies cookies.txt -o "Input/video.mp4" "${{ steps.vars.outputs.VIDEO_URL }}"
+          yt-dlp --cookies cookies.txt \
+            --remote-components ejs:github \
+            -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+            --merge-output-format mp4 \
+            -o "Input/video.mp4" \
+            "${{ steps.vars.outputs.VIDEO_URL }}"
 
       - name: Process video clips
         env:
