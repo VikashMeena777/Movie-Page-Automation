@@ -70,7 +70,7 @@ jobs:
 
       - name: Upload to Google Drive
         run: |
-          rclone copy FinalClips/ gdrive:MovieClipsAutomation/FinalClips/ --progress
+          rclone copy FinalClips/ vk889900:Pages Reels/Movie Clips873/ --progress
 
       - name: Count clips created
         id: count
