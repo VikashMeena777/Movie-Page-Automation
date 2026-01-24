@@ -41,8 +41,13 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg deno
+          sudo apt-get install -y ffmpeg unzip
           pip install yt-dlp
+          
+      - name: Install Deno (for yt-dlp JS runtime)
+        run: |
+          curl -fsSL https://deno.land/install.sh | sh
+          echo "$HOME/.deno/bin" >> $GITHUB_PATH
 
       - name: Install rclone
         run: |
